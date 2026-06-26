@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
 @theme {
   /* Definición de la paleta personalizada para Tailwind v4 */
   --color-brand-turquoise: #3EBCA4;
