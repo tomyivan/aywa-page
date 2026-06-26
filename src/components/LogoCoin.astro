@@ -1,0 +1,118 @@
+<div id="coin-container" class="relative w-64 h-64 lg:w-80 lg:h-80 xl:w-96 xl:h-96">
+  <div class="absolute inset-0 bg-brand-turquoise/20 rounded-full blur-[80px] scale-110 pointer-events-none"></div>
+  <canvas id="coin-canvas" class="relative w-full h-full"></canvas>
+</div>
+
+<script>
+  import * as THREE from 'three';
+  import { SVGLoader } from 'three/addons/loaders/SVGLoader.js';
+  import logoRaw from '../assets/logo.svg?raw';
+
+  const container = document.getElementById('coin-container') as HTMLElement;
+  const canvas    = document.getElementById('coin-canvas') as HTMLCanvasElement;
+
+  // ── Renderer ──────────────────────────────────────────────────────────────
+  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.outputColorSpace  = THREE.SRGBColorSpace;
+  renderer.toneMapping       = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.6;
+
+  // ── Scene & Camera ────────────────────────────────────────────────────────
+  const scene  = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(32, 1, 0.1, 100);
+  camera.position.set(0, 0.3, 4.5);
+
+  // ── Lights ────────────────────────────────────────────────────────────────
+  scene.add(new THREE.AmbientLight(0xffffff, 0.5));
+
+  const key = new THREE.DirectionalLight(0xffffff, 5);
+  key.position.set(3, 7, 5);
+  scene.add(key);
+
+  const fill = new THREE.DirectionalLight(0x3ebca4, 2.5);
+  fill.position.set(-5, -2, 3);
+  scene.add(fill);
+
+  const rim = new THREE.DirectionalLight(0xffffff, 2);
+  rim.position.set(-2, 4, -4);
+  scene.add(rim);
+
+  // ── Coin cylinder ─────────────────────────────────────────────────────────
+  // Material group order for CylinderGeometry: [side=0, top=1, bottom=2]
+  const coinGeo  = new THREE.CylinderGeometry(1, 1, 0.13, 128, 1, false);
+  const sideMat  = new THREE.MeshStandardMaterial({ color: 0x2a9480, metalness: 1.0, roughness: 0.14 });
+  const frontMat = new THREE.MeshStandardMaterial({ color: 0x3ebca4, metalness: 0.95, roughness: 0.12 });
+  const backMat  = new THREE.MeshStandardMaterial({ color: 0x27887a, metalness: 0.98, roughness: 0.16 });
+
+  const coin = new THREE.Mesh(coinGeo, [sideMat, frontMat, backMat]);
+  coin.rotation.x = Math.PI * 0.12;
+  scene.add(coin);
+
+  // ── SVG logo → 3D extruded relief ─────────────────────────────────────────
+  const SVG_W  = 423;
+  const SVG_H  = 425;
+  // Scale factor to fit logo within 82% of coin radius (1 Three.js unit)
+  const scaleF = (0.82 * 2) / Math.max(SVG_W, SVG_H);
+  const DEPTH  = 7; // SVG units; actual height = DEPTH * scaleF ≈ 0.027 Three.js units
+
+  const loader  = new SVGLoader();
+  const svgData = loader.parse(logoRaw);
+
+  // Lighter, shinier than the coin face to make relief pop visually
+  const logoMat = new THREE.MeshStandardMaterial({
+    color:     0x6dd5c0,
+    metalness: 1.0,
+    roughness: 0.04,
+    side:      THREE.DoubleSide,
+  });
+
+  const logoGroup = new THREE.Group();
+
+  svgData.paths.forEach((path) => {
+    SVGLoader.createShapes(path).forEach((shape) => {
+      const geo = new THREE.ExtrudeGeometry(shape, {
+        depth:          DEPTH,
+        bevelEnabled:   true,
+        bevelThickness: 0.8,
+        bevelSize:      0.6,
+        bevelSegments:  2,
+      });
+      logoGroup.add(new THREE.Mesh(geo, logoMat));
+    });
+  });
+
+  // Center SVG paths around origin (still in SVG units at this point)
+  logoGroup.position.set(-SVG_W / 2, -SVG_H / 2, 0);
+
+  // Wrapper: scale to coin space, flip Y (SVG Y is down), rotate to lie flat on coin face
+  // rotation.x = -π/2 maps +Z (extrude dir) → +Y (up from coin face)
+  const logoWrapper = new THREE.Group();
+  logoWrapper.add(logoGroup);
+  logoWrapper.scale.set(scaleF, -scaleF, scaleF);
+  logoWrapper.rotation.x = -Math.PI / 2;
+  logoWrapper.position.set(0, 0.065, 0); // coin top face is at y = half-height = 0.065
+
+  coin.add(logoWrapper);
+
+  // ── Animation loop ────────────────────────────────────────────────────────
+  let t = 0;
+  (function loop() {
+    requestAnimationFrame(loop);
+    t             += 0.012;
+    coin.rotation.y += 0.007;
+    coin.position.y  = Math.sin(t) * 0.14;
+    renderer.render(scene, camera);
+  })();
+
+  // ── Responsive resize ─────────────────────────────────────────────────────
+  function resize() {
+    const w = container.clientWidth;
+    const h = container.clientHeight;
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+    renderer.setSize(w, h);
+  }
+  resize();
+  new ResizeObserver(resize).observe(container);
+</script>

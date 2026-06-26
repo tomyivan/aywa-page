@@ -1,5 +1,5 @@
 ---
-import aywaLogo from '../assets/logo.svg?raw';
+import LogoCoin from './LogoCoin.astro';
 ---
 <section id="Inicio" class="relative min-h-screen flex items-center overflow-hidden bg-space-dark">
 
@@ -69,14 +69,9 @@ import aywaLogo from '../assets/logo.svg?raw';
       </div>
     </div>
 
-    <!-- Columna derecha: logo -->
+    <!-- Columna derecha: moneda 3D -->
     <div id="hero-logo" class="flex items-center justify-center">
-      <div class="relative">
-        <!-- Glow detrás del logo -->
-        <div class="absolute inset-0 bg-brand-turquoise/20 rounded-full blur-[80px] scale-110 pointer-events-none"></div>
-        <!-- Logo SVG inline -->
-        <span class="relative block w-64 h-64 lg:w-80 lg:h-80 xl:w-96 xl:h-96 text-brand-turquoise drop-shadow-[0_0_40px_rgba(62,188,164,0.4)]" set:html={aywaLogo} />
-      </div>
+      <LogoCoin />
     </div>
   </div>
 
@@ -101,12 +96,5 @@ import aywaLogo from '../assets/logo.svg?raw';
     .from('#hero-logo',     { x: 60,  opacity: 0, duration: 1.0, ease: 'power2.out' }, '-=1.2')
     .from('#hero-scroll',   { opacity: 0, duration: 0.5 }, '-=0.2');
 
-  // Flotación continua del logo
-  gsap.to('#hero-logo', {
-    y: -18,
-    duration: 3,
-    ease: 'sine.inOut',
-    yoyo: true,
-    repeat: -1,
-  });
+  // La flotación del logo la maneja Three.js internamente
 </script>
