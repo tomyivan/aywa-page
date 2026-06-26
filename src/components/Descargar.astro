@@ -1,0 +1,124 @@
+---
+const badges = [
+  {
+    label: '100% Gratis',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>`,
+  },
+  {
+    label: 'Sin anuncios',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>`,
+  },
+  {
+    label: 'Hecho con amor',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z"/></svg>`,
+  },
+];
+---
+
+<section id="Descargar" class="relative bg-space-dark py-24 overflow-hidden">
+
+  <!-- Glows -->
+  <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-brand-turquoise/8 rounded-full blur-[120px] pointer-events-none"></div>
+  <div class="absolute bottom-0 left-1/4 w-[300px] h-[200px] bg-space-purple/60 rounded-full blur-[100px] pointer-events-none"></div>
+
+  <div class="max-w-4xl mx-auto px-6 text-center flex flex-col items-center gap-10">
+
+    <!-- Encabezado -->
+    <div id="dl-header" class="flex flex-col items-center gap-5">
+      <div class="w-16 h-16 rounded-2xl bg-card-navy border border-brand-turquoise/20 flex items-center justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="currentColor" class="text-brand-turquoise" stroke="none">
+          <path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z"/>
+        </svg>
+      </div>
+
+      <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-text-main leading-tight">
+        ¿Listo para darle<br/>
+        <span class="text-brand-turquoise">mejor vida a tu<br/>mejor amigo?</span>
+      </h2>
+
+      <p class="text-text-secondary text-lg max-w-xl leading-relaxed">
+        Únete a miles de dueños que ya usan <span class="text-text-main font-semibold">OyWA</span> para mantener a sus mascotas seguras, encontradas y felices.
+      </p>
+    </div>
+
+    <!-- Badges de propuesta de valor -->
+    <div id="dl-badges" class="flex flex-wrap justify-center gap-3">
+      {badges.map((b) => (
+        <div class="flex items-center gap-2 bg-card-navy border border-text-secondary/10 text-text-secondary rounded-full px-4 py-2 text-sm font-medium">
+          <span class="text-brand-turquoise">
+            <Fragment set:html={b.icon} />
+          </span>
+          {b.label}
+        </div>
+      ))}
+    </div>
+
+    <!-- Botones de descarga -->
+    <div id="dl-buttons" class="flex flex-col sm:flex-row gap-4">
+
+      <!-- App Store -->
+      <a
+        href="#"
+        class="group flex items-center gap-4 bg-card-navy border border-text-secondary/10 hover:border-brand-turquoise/40 hover:shadow-[0_0_30px_rgba(62,188,164,0.1)] px-6 py-4 rounded-2xl transition-all duration-300 min-w-[200px]"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 814 1000" class="text-text-main flex-shrink-0" fill="currentColor">
+          <path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76 0-103.7 40.8-165.9 40.8s-105-42.3-150.3-110.1C27.1 706.3 1 640.2 1 576.2c0-162.4 107.3-248.1 212.3-248.1 56.5 0 103.7 37.8 138.5 37.8 33.2 0 85.5-40 150.3-40 24.4 0 108.1 2.6 168.9 80.2zm-107.3-171.7c-40.8 40.1-162.9 71.2-185.4 40.4-20.3-27.4 5.6-137.6 60.6-195.1 33.2-35.5 87.1-63.2 136.7-63.2 15.4 0 21.7 3.9 21.7 3.9 2.6 31.5-12.9 115.2-33.6 113.9z"/>
+        </svg>
+        <div class="text-left">
+          <p class="text-text-secondary text-xs">Descargar en</p>
+          <p class="text-text-main font-bold text-lg leading-tight">App Store</p>
+        </div>
+      </a>
+
+      <!-- Google Play -->
+      <a
+        href="#"
+        class="group flex items-center gap-4 bg-card-navy border border-text-secondary/10 hover:border-brand-turquoise/40 hover:shadow-[0_0_30px_rgba(62,188,164,0.1)] px-6 py-4 rounded-2xl transition-all duration-300 min-w-[200px]"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 512 512" class="text-text-main flex-shrink-0" fill="currentColor">
+          <path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.7-256L47 0zm425.6 225.6l-58.9-34-65.7 64.5 65.7 64.5 60.1-34.3c17.2-9.8 17.2-36.5-.7-60.7zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/>
+        </svg>
+        <div class="text-left">
+          <p class="text-text-secondary text-xs">Disponible en</p>
+          <p class="text-text-main font-bold text-lg leading-tight">Google Play</p>
+        </div>
+      </a>
+    </div>
+
+    <!-- Nota de próximo lanzamiento -->
+    <p id="dl-note" class="text-text-secondary/50 text-sm">
+      Próximamente disponible · Sé el primero en saberlo
+    </p>
+  </div>
+</section>
+
+<style>
+  #dl-header,
+  #dl-badges,
+  #dl-buttons,
+  #dl-note {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+</style>
+
+<script>
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  ScrollTrigger.create({
+    trigger: '#Descargar',
+    start: 'top 75%',
+    once: true,
+    onEnter: () => {
+      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+
+      tl.to('#dl-header',  { opacity: 1, y: 0, duration: 0.8 })
+        .to('#dl-badges',  { opacity: 1, y: 0, duration: 0.6 }, '-=0.4')
+        .to('#dl-buttons', { opacity: 1, y: 0, duration: 0.6 }, '-=0.3')
+        .to('#dl-note',    { opacity: 1, y: 0, duration: 0.5 }, '-=0.2');
+    },
+  });
+</script>

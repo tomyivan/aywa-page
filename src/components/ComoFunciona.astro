@@ -1,0 +1,135 @@
+---
+const steps = [
+  {
+    number: '01',
+    title: 'Descarga la app',
+    description: 'Disponible para iOS y Android. Instálala gratis y crea tu cuenta en menos de un minuto.',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>`,
+  },
+  {
+    number: '02',
+    title: 'Registra tu mascota',
+    description: 'Agrega el nombre, fotos y datos de tu compañero. En segundos tienes su perfil listo.',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`,
+  },
+  {
+    number: '03',
+    title: 'Explora y conecta',
+    description: 'Reporta mascotas perdidas, encuentra refugios cercanos y comparte momentos con la comunidad.',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>`,
+  },
+];
+---
+
+<section id="ComoFunciona" class="relative bg-space-dark py-24 overflow-hidden">
+
+  <!-- Glows decorativos -->
+  <div class="absolute top-1/2 left-0 -translate-y-1/2 w-[350px] h-[350px] bg-space-purple/60 rounded-full blur-[120px] pointer-events-none"></div>
+  <div class="absolute top-1/2 right-0 -translate-y-1/2 w-[250px] h-[250px] bg-brand-turquoise/10 rounded-full blur-[100px] pointer-events-none"></div>
+
+  <div class="max-w-7xl mx-auto px-6">
+
+    <!-- Header -->
+    <div id="how-header" class="text-center mb-20">
+      <span class="inline-block text-brand-turquoise text-sm font-semibold tracking-widest uppercase mb-4">
+        Fácil de usar
+      </span>
+      <h2 class="text-4xl md:text-5xl font-bold text-text-main mb-4">
+        Empieza en
+        <span class="text-brand-turquoise">3 simples pasos</span>
+      </h2>
+      <p class="text-text-secondary text-lg max-w-lg mx-auto">
+        Sin complicaciones. Tu mascota protegida y conectada con la comunidad en minutos.
+      </p>
+    </div>
+
+    <!-- Pasos -->
+    <div class="relative grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6">
+
+      <!-- Línea conectora (solo desktop) -->
+      <div id="how-line" class="hidden md:block absolute top-[3.25rem] left-[calc(16.66%+2rem)] right-[calc(16.66%+2rem)] h-px">
+        <div class="w-full h-full border-t-2 border-dashed border-brand-turquoise/25"></div>
+        <!-- Puntos sobre la línea -->
+        <div class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-brand-turquoise/40"></div>
+        <div class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 w-2 h-2 rounded-full bg-brand-turquoise/40"></div>
+      </div>
+
+      {steps.map((step) => (
+        <div class="how-step flex flex-col items-center text-center gap-5">
+
+          <!-- Número + ícono -->
+          <div class="relative">
+            <!-- Número en esquina -->
+            <span class="absolute -top-3 -right-3 text-xs font-bold text-brand-turquoise bg-card-navy border border-brand-turquoise/30 rounded-full w-7 h-7 flex items-center justify-center z-10">
+              {step.number}
+            </span>
+            <!-- Círculo del ícono -->
+            <div class="w-[6.5rem] h-[6.5rem] rounded-2xl bg-card-navy border border-text-secondary/10 flex items-center justify-center text-brand-turquoise hover:border-brand-turquoise/40 hover:shadow-[0_0_30px_rgba(62,188,164,0.15)] transition-all duration-300 cursor-default">
+              <Fragment set:html={step.icon} />
+            </div>
+          </div>
+
+          <!-- Texto -->
+          <div class="flex flex-col gap-2 max-w-xs">
+            <h3 class="text-xl font-bold text-text-main">{step.title}</h3>
+            <p class="text-text-secondary text-sm leading-relaxed">{step.description}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- CTA final -->
+    <div id="how-cta" class="mt-16 text-center">
+      <a
+        href="#Descargar"
+        class="inline-flex items-center gap-3 bg-brand-turquoise text-space-dark font-bold px-10 py-4 rounded-full text-lg transition-all duration-300 hover:shadow-[0_0_40px_rgba(62,188,164,0.45)] hover:scale-105"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        Comenzar ahora — Es gratis
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  #how-header,
+  #how-line,
+  #how-cta {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  .how-step {
+    opacity: 0;
+    transform: translateY(36px);
+  }
+</style>
+
+<script>
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  ScrollTrigger.create({
+    trigger: '#ComoFunciona',
+    start: 'top 75%',
+    once: true,
+    onEnter: () => {
+      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+
+      tl.to('#how-header', { opacity: 1, y: 0, duration: 0.7 })
+        .to('#how-line',   { opacity: 1, y: 0, duration: 0.5 }, '-=0.3')
+        .to(gsap.utils.toArray<HTMLElement>('.how-step'), {
+            opacity: 1,
+            y: 0,
+            duration: 0.6,
+            stagger: 0.14,
+          }, '-=0.3')
+        .to('#how-cta', { opacity: 1, y: 0, duration: 0.5 }, '-=0.2');
+    },
+  });
+</script>

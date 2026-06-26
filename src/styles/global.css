@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+@theme {
+  /* Definición de la paleta personalizada para Tailwind v4 */
+  --color-brand-turquoise: #3EBCA4;
+  --color-brand-pastel: #A6ECE0;
+  
+  --color-space-dark: #0B0E1A;
+  --color-space-purple: #1E1A34;
+  
+  --color-card-navy: #131B31;
+  
+  --color-text-main: #FFFFFF;
+  --color-text-secondary: #9AA5B9;
+}
